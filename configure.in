@@ -36,13 +36,6 @@ fi
 ])
 
 dnl -----------------------------------
-dnl On Mac OS X, gcc-4.0 leads to link errors; must use gcc-3.3
-dnl -----------------------------------
-if test -x "/usr/bin/gcc-3.3"; then
-    CC=gcc-3.3
-fi
-
-dnl -----------------------------------
 dnl Get hostname and other information.
 dnl -----------------------------------
 AC_CANONICAL_HOST
