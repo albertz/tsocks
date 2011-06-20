@@ -42,10 +42,22 @@ if [ $# = 0 ] ; then
    exit
 fi
 
-LIBDIR="/lib"
 LIB_NAME="libtsocks"
 SHLIB_EXT="dylib"
-SHLIB="${LIBDIR}/${LIB_NAME}.${SHLIB_EXT}"
+SHLIB="${LIB_NAME}.${SHLIB_EXT}"
+
+MYDIR="$(cd "$(dirname "$0")"; pwd)"
+
+LIBDIR="$MYDIR"
+[ \! -e "$LIBDIR/$SHLIB" ] && LIBDIR="."
+[ \! -e "$LIBDIR/$SHLIB" ] && LIBDIR="/usr/local/lib"
+[ \! -e "$LIBDIR/$SHLIB" ] && LIBDIR="/lib"
+[ \! -e "$LIBDIR/$SHLIB" ] && LIBDIR="/usr/lib"
+[ \! -e "$LIBDIR/$SHLIB" ] && {
+	echo "$0: didn't found $SHLIB"
+	exit 1
+}
+SHLIB="$LIBDIR/$SHLIB"
 
 function show() {
     echo "DYLD_FORCE_FLAT_NAMESPACE     = $DYLD_FORCE_FLAT_NAMESPACE"
